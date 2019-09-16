@@ -1,0 +1,184 @@
+<!-- Time -->
+
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+	var ampm;
+	if (h >= 12)
+		{ampm = "PM"}
+			else
+				{ampm = "AM" };
+	if (h < 1)
+		{h = 12};
+	
+	if (h > 12)
+		{h = h - 12};
+	
+    document.getElementById('time').innerHTML =
+    h + ":" + m + ":" + s + " " + ampm;
+    var t = setTimeout(startTime, 500);
+}
+
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+	return i;
+}	
+	
+	
+function dateInfo() {
+
+
+  <!-- date info -->
+var date = new Date()
+console.log(date);
+
+var monthName = new Array();
+monthName[0] = "January";
+monthName[1] = "February";
+monthName[2] = "March";
+monthName[3] = "April";
+monthName[4] = "May";
+monthName[5] = "June";
+monthName[6] = "July";
+monthName[7] = "August";
+monthName[8] = "September";
+monthName[9] = "October";
+monthName[10] = "November";
+monthName[11] = "December";
+var month = monthName[date.getMonth()];
+
+<!-- var test = monthName[4] would be May -->
+var days = new Array();
+days[1] = "st";
+days[2] = "nd";
+days[3] = "rd";
+days[4] = "th";
+days[5] = "th";
+days[6] = "th";
+days[7] = "th";
+days[8] = "th";
+days[9] = "th";
+days[10] = "th";
+days[11] = "th";
+days[12] = "th";
+days[13] = "th";
+days[14] = "th";
+days[15] = "th";
+days[16] = "th";
+days[17] = "th";
+days[18] = "th";
+days[19] = "th";
+days[20] = "th";
+days[21] = "st";
+days[22] = "nd";
+days[23] = "rd";
+days[24] = "th";
+days[25] = "th";
+days[26] = "th";
+days[27] = "th";
+days[28] = "th";
+days[29] = "th";
+days[30] = "th";
+days[31] = "st";
+
+var day = date.getDate()
+var daySup = days[date.getDate()]
+var year = date.getFullYear()
+var dateDisplay = month + " " + day + daySup + ", " + year;
+
+
+	document.getElementById("currentDate").innerHTML = dateDisplay;
+}
+		
+	
+	
+
+<!-- weather -->
+function weather() {
+
+	
+         $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/API KEY GOES HERE,LOCATION GOES HERE',
+
+		function(data){
+		console.log(data);
+		console.log("Test Line: " + data.currently.temperature);
+		
+		document.getElementById("curtemp").innerHTML = Math.round(data.currently.temperature);
+		var curpicSRC = "image/" + data.currently.icon + ".png";
+		document.getElementById("curpic").src = curpicSRC;
+
+		
+		document.getElementById("current_summary").innerHTML = data.currently.summary;
+
+		// five day data - 
+
+		var date0 = new Date((data.daily.data["0"].time)*1000);
+		var day0 = (date0.getMonth()+1) + "/" + date0.getDate();
+		var day0Img = "image/" + data.daily.data[0].icon + ".png";
+		var day0Sum = data.daily.data[0].summary;
+	
+		var date1 = new Date((data.daily.data["1"].time)*1000);
+		var day1 = (date1.getMonth()+1) + "/" + date1.getDate();
+		var day1Img = "image/" + data.daily.data[1].icon + ".png";
+		var day1Sum = data.daily.data[1].summary;
+	
+		var date2 = new Date((data.daily.data["2"].time)*1000);
+		var day2 = (date2.getMonth()+1) + "/" + date2.getDate();
+		var day2Img = "image/" + data.daily.data[2].icon + ".png";
+		var day2Sum = data.daily.data[2].summary;
+		
+		var date3 = new Date((data.daily.data["3"].time)*1000);
+		var day3 = (date3.getMonth()+1) + "/" + date3.getDate();
+		var day3Img = "image/" + data.daily.data[3].icon + ".png";
+		var day3Sum = data.daily.data[3].summary;
+				
+		var date4 = new Date((data.daily.data["4"].time)*1000);
+		var day4 = (date4.getMonth()+1) + "/" + date4.getDate();
+		var day4Img = "image/" + data.daily.data[4].icon + ".png";
+		var day4Sum = data.daily.data[4].summary;
+				
+
+			
+		// setting five day data
+
+
+		document.getElementById("dayZeroDate").innerHTML = day0;
+		document.getElementById("dayZeroTempH").innerHTML = Math.round(data.daily.data["0"].temperatureHigh);
+		document.getElementById("dayZeroTempL").innerHTML = Math.round(data.daily.data["0"].temperatureLow);
+		document.getElementById("dayZeroImg").src = day0Img;
+		document.getElementById("dayZeroSum").innerHTML = day0Sum;
+		
+		document.getElementById("dayOneDate").innerHTML = day1;
+		document.getElementById("dayOneTempH").innerHTML = Math.round(data.daily.data["1"].temperatureHigh);
+		document.getElementById("dayOneTempL").innerHTML = Math.round(data.daily.data["1"].temperatureLow);		
+		document.getElementById("dayOneImg").src = day1Img;
+		document.getElementById("dayOneSum").innerHTML = day1Sum;
+		
+		document.getElementById("dayTwoDate").innerHTML = day2;
+		document.getElementById("dayTwoTempH").innerHTML = Math.round(data.daily.data["2"].temperatureHigh);
+		document.getElementById("dayTwoTempL").innerHTML = Math.round(data.daily.data["2"].temperatureLow);		
+		document.getElementById("dayTwoImg").src = day2Img;
+		document.getElementById("dayTwoSum").innerHTML = day2Sum;
+		
+		document.getElementById("dayThreeDate").innerHTML = day3;
+		document.getElementById("dayThreeTempH").innerHTML = Math.round(data.daily.data["3"].temperatureHigh);
+		document.getElementById("dayThreeTempL").innerHTML = Math.round(data.daily.data["3"].temperatureLow);		
+		document.getElementById("dayThreeImg").src = day3Img;
+		document.getElementById("dayThreeSum").innerHTML = day3Sum;
+		
+		document.getElementById("dayFourDate").innerHTML = day4;
+		document.getElementById("dayFourTempH").innerHTML = Math.round(data.daily.data["4"].temperatureHigh);
+		document.getElementById("dayFourTempL").innerHTML = Math.round(data.daily.data["4"].temperatureLow);		
+		document.getElementById("dayFourImg").src = day4Img;
+		document.getElementById("dayFourSum").innerHTML = day4Sum;
+						
+		
+		});
+	}
+
+	
+	
